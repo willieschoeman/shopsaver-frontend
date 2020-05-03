@@ -1,0 +1,38 @@
+<div>
+    <div class="header">
+        <div class="menu-heading-left">
+            Welcome to <strong>Shop Saver</strong>
+        </div>
+        <div class="menu-icon-holder-right">
+            <div class="round-icon">
+                <span data-toggle="tooltip" title="Logout" class="round-icon-icon"><a (click)="showLogoutModal()"><i
+                            class="fa fa-sign-out fa-2x"></i></a></span>
+            </div>
+            <div class="round-icon">
+                <span data-toggle="tooltip" title="Go To Home" class="round-icon-icon"><a (click)="goToHome()"><i
+                            class="fa fa-home fa-2x"></i></a></span>
+            </div>
+            <div class="round-icon">
+                <span data-toggle="tooltip" title="Update Profile" class="round-icon-icon"><a
+                        (click)="updateProfile()"><i class="fa fa-user fa-2x"></i></a></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Logout Modal Popup -->
+<ng-template #logoutModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Confirm Logout</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Are you sure you want to logout?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="logout()">Confirm</button>
+        <button type="button" class="btn btn-secondary" (click)="hideModal()">Close</button>
+    </div>
+</ng-template>
