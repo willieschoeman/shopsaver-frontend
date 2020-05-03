@@ -15,13 +15,15 @@ export class LoginComponent implements OnInit {
   public errorMgs: string
   public isLoading: boolean
   public isSubmitted: boolean
+  public showForgotPasswordForm: boolean
 
   constructor(private router: Router, 
     formBuilder: FormBuilder,
     private loginService: LoginService) {
 
     this.isLoading = true
-    this.isSubmitted = false;
+    this.isSubmitted = false
+    this.showForgotPasswordForm = false
 
     this.userForm = formBuilder.group({
       username: ['', [Validators.required]],
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true
+    this.showForgotPasswordForm = false
     this.errorMgs = ''
     setTimeout( () => { this.isLoading = false }, 1000 )
   }
@@ -58,7 +61,8 @@ export class LoginComponent implements OnInit {
     this.loginService.authenticate(payload)
       .subscribe(res => {
         if (res.success) {
-          sessionStorage.setItem("XUSER", res.response.user._id)
+          sessionStorage.setItem("XUSERID", res.response.user._id)
+          sessionStorage.setItem('XUSERNAME', res.response.user.name)
           sessionStorage.setItem("XTOKEN", res.response.user.token)
           this.loginService.updateLogin(true)
           this.router.navigate(['home'])
@@ -78,6 +82,14 @@ export class LoginComponent implements OnInit {
       });
 
       this.userForm.reset()
+  }
+
+  forgotPassword() {
+    this.showForgotPasswordForm = true
+  }
+
+  register() {
+    this.router.navigate(['register'])
   }
 
 }

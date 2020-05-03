@@ -8,17 +8,27 @@ h1 {
 }
 
 .fill {
-    background: linear-gradient(135deg, rgba(150, 213, 233, 1) 0%, rgba(14, 148, 206, 1) 100%);
+    background-color: #44b7fa;
+    margin: 0 auto;
+    min-height: 100%;
     width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0px;
-    left: 0px;
+    position: absolute;
+    padding-bottom: 50px;
     z-index: 1100;
 }
 
+.forgot-password a {
+    color: #44b7fa;
+}
+
+.forgot-password a:hover {
+    cursor: pointer;
+}
+
 .btn {
-    min-width: 200px;
+    min-width: 220px;
+    margin: 5px;
+    border-radius: 30px;
 }
 
 .login-form {

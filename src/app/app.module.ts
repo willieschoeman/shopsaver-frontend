@@ -17,6 +17,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { ProductService } from './services/product.service';
 import { HeaderComponent } from './header/header.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HeaderComponent } from './header/header.component';
     HomeComponent,
     LoadingComponent,
     SearchPipe,
-    HeaderComponent
+    HeaderComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

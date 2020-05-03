@@ -21,6 +21,14 @@ fa {
     padding-bottom: 100px;
 }
 
+.product-active {
+    color: green;
+}
+
+.product-inactive {
+    color: red;
+}
+
 .stock-holder {
     height: 460px;
     border-radius: 5px;
@@ -47,7 +55,7 @@ fa {
     height: 100px;
     background: #2FA4E7;
     color: #fff;
-    box-shadow: 3px 3px 22px;
+    box-shadow: 3px 3px 22px rgb(63, 63, 63);
     border-radius: 100%;
     z-index: 900;
     position: fixed;
@@ -63,7 +71,7 @@ ul li {
 .bubble-inside {
     text-align: center;
     margin: auto;
-    padding-top: 20px;
+    padding-top: 15px;
     color: #fff;
 }
 

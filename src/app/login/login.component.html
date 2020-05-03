@@ -3,7 +3,8 @@
   <div class="fill">
     <div>
       <h1>Shop Saver Console</h1>
-      <div class="login-form">
+      <!-- Login -->
+      <div *ngIf="showForgotPasswordForm === false" class="login-form">
         <h2>Log In</h2>
         <form [formGroup]="userForm" class="login-container" (ngSubmit)="login()">
 
@@ -24,11 +25,17 @@
               <div *ngIf="formControls.password.errors.required">Password is required!</div>
             </div>
           </div>
-          <p>
-            <input type="submit" value="Log In" class="btn btn-primary btn-lg">
-          </p>
+          <hr>
           <div class="clearfix">
             <p class="error-mgs">{{errorMgs}}</p>
+          </div>
+          <div>
+            <input type="submit" value="Log In" class="btn btn-primary btn-lg">
+            <button type="button" class="btn btn-secondary btn-lg" (click)="register()">Register</button>
+          </div>
+          <hr>
+          <div class="forgot-password">
+            <label>Forgot your password <a (click)="forgotPassword()">Click here</a></label>
           </div>
         </form>
       </div>

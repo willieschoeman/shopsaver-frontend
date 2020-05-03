@@ -1,15 +1,15 @@
 <app-loading *ngIf="isLoading"></app-loading>
 <div *ngIf="!isLoading">
   <div class="container">
-    <h1>Shop Saver Console</h1>
+    <h1>Product Dashboard</h1>
 
-    <a class="bubble" (click)="addProduct()">
+    <div class="bubble" (click)="addProduct()">
       <div class="bubble-inside">
         <i class="fa fa-plus fa-3x"></i>
         <br />
         <span>Add Product</span>
       </div>
-    </a>
+    </div>
 
     <div class="row search">
       <div class="col-sm-12 col-md-8 col-lg-6">
@@ -26,9 +26,11 @@
           <div class="card-body">
             <h5 class="card-title">{{product.productName}}</h5>
             <ul>
-              <li><strong>Category:</strong> {{product.categoryName}}</li>
-              <li><strong>Price Was:</strong> R{{product.productPriceWas}}</li>
-              <li><strong>Price Now:</strong> R{{product.productPriceNow}}</li>
+              <li *ngIf="product.active === true"><strong class="product-active">Active</strong></li>
+              <li *ngIf="product.active === false"><strong class="product-inactive">Inactive</strong></li>
+              <li><strong>Category: </strong>{{product.categoryName}}</li>
+              <li><strong>Was: </strong>R{{product.productPriceWas}}</li>
+              <li><strong>Now: </strong>R{{product.productPriceNow}}</li>
             </ul>
           </div>
           <div class="action-holder">
@@ -61,7 +63,7 @@
     </p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="confirmDelete()">Confirm</button>
-    <button type="button" class="btn btn-secondary" (click)="hideModal()">Close</button>
+    <button type="button" class="btn btn-danger" (click)="confirmDelete()">Confirm</button>
+    <button type="button" class="btn btn-secondary" (click)="hideModal()">Cancel</button>
   </div>
 </ng-template>

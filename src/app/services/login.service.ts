@@ -24,8 +24,8 @@ export class LoginService {
   // Auth logout
   private authLogout() {
     sessionStorage.removeItem("XTOKEN")
-    sessionStorage.removeItem("XUSER")
-    sessionStorage.removeItem("XSOURCE")
+    sessionStorage.removeItem("XUSERID")
+    sessionStorage.removeItem('XUSERNAME')
     this.updateLogin(false)
   }
 

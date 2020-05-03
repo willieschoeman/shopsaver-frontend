@@ -10,6 +10,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 })
 export class HeaderComponent implements OnInit {
 
+  public userName: string
+
   @ViewChild('logoutModal') logoutModal: ElementRef
   public modalRef: BsModalRef
 
@@ -17,9 +19,11 @@ export class HeaderComponent implements OnInit {
     private loginService: LoginService,
     private modalService: BsModalService,
     private router: Router) {    
+      this.userName = sessionStorage.getItem('XUSERNAME')
   }
 
   ngOnInit() {
+    this.userName = sessionStorage.getItem('XUSERNAME')
   }
 
   goToHome() {

@@ -25,11 +25,11 @@ export class HomeComponent implements OnInit {
   public deleteItem: string
 
   constructor(private router: Router,
-          public searchPipe: SearchPipe,
-          private modalService: BsModalService,
-          private loginService: LoginService,
-          private productService: ProductService
-          ) {
+    public searchPipe: SearchPipe,
+    private modalService: BsModalService,
+    private loginService: LoginService,
+    private productService: ProductService
+  ) {
     this.isLoading = true
     this.products = []
     this.query = ''
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true
-    this.userId = sessionStorage.getItem("XUSER")
+    this.userId = sessionStorage.getItem("XUSERID")
 
     this.deleteError = ''
     this.selectedId = ''
@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
   getProducts() {
     this.isLoading = true
 
-    const payload = { 
+    const payload = {
       'userId': this.userId
     }
 
@@ -62,10 +62,11 @@ export class HomeComponent implements OnInit {
       .subscribe(res => {
         this.isLoading = false
         this.products = res.response.products
+
       },
-      error => {
-         this.isLoading = false
-      });
+        error => {
+          this.isLoading = false
+        });
   }
 
   editProduct(id) {
