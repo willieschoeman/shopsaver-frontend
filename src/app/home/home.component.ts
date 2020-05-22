@@ -1,11 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
-import { SearchPipe } from '../pipes/search.pipe';
 import { LoginService } from '../services/login.service';
-import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -14,91 +11,79 @@ import { ProductService } from '../services/product.service';
 })
 export class HomeComponent implements OnInit {
 
-  @ViewChild('deleteModal') deleteModal: ElementRef
-  public modalRef: BsModalRef
+  @ViewChild('locationModal') locationModal: ElementRef
+  public errorMgs: string
   public isLoading: boolean
-  public products: any
-  public query: string
-  private userId: string
-  public selectedId: string
-  public deleteError: string
-  public deleteItem: string
+  public isSubmitted: boolean
+  public showForgotPasswordForm: boolean
+  public categories: any
+  public category: any;
+  public selectedCategory: string;
+  public categorySelected: boolean;
+  public selectedPrice: number;
+  public selectedDistance: number;
+  public modalRef: BsModalRef
 
   constructor(private router: Router,
-    public searchPipe: SearchPipe,
-    private modalService: BsModalService,
     private loginService: LoginService,
-    private productService: ProductService
-  ) {
+    private modalService: BsModalService,) {
+
     this.isLoading = true
-    this.products = []
-    this.query = ''
-    this.selectedId = ''
-    this.deleteError = ''
-    this.deleteItem = ''
+    this.isSubmitted = false
+    this.showForgotPasswordForm = false
+
+    this.selectedCategory = ''
+    this.categorySelected = false
+    this.selectedPrice = 12000
+    this.selectedDistance = 20
+
+    this.categories = [
+      { id: 'all', name: 'All Categories' },
+      { id: 'clothing', name: 'Clothing' },
+      { id: 'electronics', name: 'Electronics' },
+      { id: 'furniture', name: 'Furniture' }
+    ]
+
   }
 
   ngOnInit() {
     this.isLoading = true
-    this.userId = sessionStorage.getItem("XUSERID")
-
-    this.deleteError = ''
-    this.selectedId = ''
-    this.deleteItem = ''
-    this.products = []
-
-    this.getProducts()
-
+    this.showForgotPasswordForm = false
+    this.errorMgs = ''
+    setTimeout(() => { this.isLoading = false }, 1000)
   }
 
-  getProducts() {
-    this.isLoading = true
+  search() {
 
-    const payload = {
-      'userId': this.userId
+    this.isSubmitted = true;
+
+    this.isLoading = true
+    this.errorMgs = ''
+
+    if (this.selectedCategory === '') {
+      this.isLoading = false
+      return
     }
 
-    this.productService.getProducts(payload)
-      .subscribe(res => {
-        this.isLoading = false
-        this.products = res.response.products
-
-      },
-        error => {
-          this.isLoading = false
-        });
-  }
-
-  editProduct(id) {
-    this.router.navigate(["edit-stock", id])
-  }
-
-  addProduct() {
-    this.router.navigate(["add-stock"])
-  }
-
-  deleteProduct(id) {
-
-    this.selectedId = id
-    this.deleteItem = this.products.find(x => x._id === this.selectedId).productName
-
-    this.showDeleteModal()
-  }
-
-  confirmDelete() {
-    this.isLoading = true
-
-    this.deleteError = ''
-
-    const params = "/" + this.selectedId
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        this.isLoading = false;
+      });
+    } else {
+      this.isLoading = false
+      this.showLocationModal()
+    }
 
   }
 
-  showDeleteModal() {
-    this.modalRef = this.modalService.show(this.deleteModal)
+  showLocationModal() {
+    this.modalRef = this.modalService.show(this.locationModal)
   }
 
   hideModal() {
     this.modalRef.hide()
   }
+
 }

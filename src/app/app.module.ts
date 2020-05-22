@@ -18,6 +18,7 @@ import { SearchPipe } from './pipes/search.pipe';
 import { ProductService } from './services/product.service';
 import { HeaderComponent } from './header/header.component';
 import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RegisterComponent } from './register/register.component';
     LoadingComponent,
     SearchPipe,
     HeaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

@@ -1,69 +1,69 @@
 <app-loading *ngIf="isLoading"></app-loading>
 <div *ngIf="!isLoading">
-  <div class="container">
-    <h1>Product Dashboard</h1>
-
-    <div class="bubble" (click)="addProduct()">
-      <div class="bubble-inside">
-        <i class="fa fa-plus fa-3x"></i>
-        <br />
-        <span>Add Product</span>
-      </div>
-    </div>
-
-    <div class="row search">
-      <div class="col-sm-12 col-md-8 col-lg-6">
-        <label class="form-control-label">Search:</label>
-        <input type="text" placeholder="" class="form-control" [(ngModel)]="query" name="search">
-      </div>
-    </div>
-
-    <div class="stock-container row">
-      <div *ngFor="let product of products | search:'productName,category,productSku':query" class="card col-sm-6 col-md-6 col-lg-4 mt-4">
-        <div class="stock-holder">
-          <a data-toggle="tooltip" title="Update Product" (click)="editProduct(product._id)"><img class="card-img-top" src="data:image/jpeg;base64,{{product.productImage}}"
-              alt="Card image cap"></a>
-          <div class="card-body">
-            <h5 class="card-title">{{product.productName}}</h5>
-            <ul>
-              <li *ngIf="product.active === true"><strong class="product-active">Active</strong></li>
-              <li *ngIf="product.active === false"><strong class="product-inactive">Inactive</strong></li>
-              <li><strong>Category: </strong>{{product.categoryName}}</li>
-              <li><strong>Was: </strong>R{{product.productPriceWas}}</li>
-              <li><strong>Now: </strong>R{{product.productPriceNow}}</li>
-            </ul>
+  <div class="fill">
+    <div>
+      <h1>Welcome To Shop Saver</h1>
+      <h2>Search For Specials In Your Area</h2>
+      <div *ngIf="showForgotPasswordForm === false" class="search-form">
+        <div class="login-container">
+          <div class="form-group">
+            <label class="form-control-label">Select A Category:</label>
+            <select class="form-control" [ngClass]="{ 'is-invalid': isSubmitted && selectedCategory === '' }"
+              [(ngModel)]='selectedCategory'>
+              <option class="form-control" value="" disabled selected>--- Select a category ---</option>
+              <option class="form-control" [ngValue]="category.id" *ngFor="let category of categories">{{category.name}}
+              </option>
+            </select>
+            <div *ngIf="isSubmitted && selectedCategory === ''" class="invalid-feedback">
+              <div *ngIf="selectedCategory === ''">Category is required!</div>
+            </div>
           </div>
-          <div class="action-holder">
-            <a data-toggle="tooltip" title="Edit Product" class="action-item" (click)="editProduct(product._id)">
-              <i class="fa fa-edit fa-2x"></i>
-            </a>
-            <a data-toggle="tooltip" title="Delete Product" class="action-item" (click)="deleteProduct(product._id)">
-              <i class="fa fa-trash fa-2x"></i>
-            </a>
+
+          <div class="form-group">
+            <label class="form-control-label">Selected Maximum Price:</label>
+            <label class="form-control-label value-label">R {{selectedPrice}}</label>
+            <div>
+              <label class="min-label">R0</label>
+              <label class="max-label">R100000</label>
+              <input [(ngModel)]='selectedPrice' class="form-control price-slider" type="range" min="0" max="100000" value="{{selectedPrice}}" step="500">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-control-label">Selected Search Radius:</label>
+            <label class="form-control-label value-label">{{selectedDistance}} km</label>
+            <div>
+              <label class="min-label">0 km</label>
+              <label class="max-label">50 km</label>
+              <input [(ngModel)]='selectedDistance' class="form-control price-slider" type="range" min="0" max="50" value="{{selectedDistance}}" step="1">
+            </div>
+          </div>
+
+          <hr>
+          <div class="clearfix">
+            <p class="error-mgs">{{errorMgs}}</p>
+          </div>
+          <div>
+            <input type="submit" value="Search" class="btn btn-primary btn-lg" (click)="search()">
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- Delete Modal Popup -->
-<ng-template #deleteModal>
+<!-- Location Modal Popup -->
+<ng-template #locationModal>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Confirm Delete</h4>
+    <h4 class="modal-title pull-left">Confirm Location</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    Are you sure you want to delete this product: <strong>{{deleteItem}}</strong>?
-    <p class="error-mgs">
-      {{deleteError}}
-    </p>
+    <strong>Please Note: </strong>We are unable to determine your location. Please allow/enable your location!
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="confirmDelete()">Confirm</button>
-    <button type="button" class="btn btn-secondary" (click)="hideModal()">Cancel</button>
+    <button type="button" class="btn btn-danger location-btn" (click)="hideModal()">OK</button>
   </div>
 </ng-template>

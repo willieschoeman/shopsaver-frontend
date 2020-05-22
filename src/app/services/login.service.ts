@@ -18,7 +18,7 @@ export class LoginService {
   // Logout user
   public logout() {
     this.authLogout()
-    this.router.navigate(['login'])
+    this.router.navigate(['home'])
   }
 
   // Auth logout

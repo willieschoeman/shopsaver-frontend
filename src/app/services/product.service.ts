@@ -7,13 +7,19 @@ import { ApiService } from './api.service';
 @Injectable()
 export class ProductService {
 
-  private getProductKey = 'getproduct'
+  private getProductKey = 'getProduct'
+  private getProductByLocation = 'getProductByLocation'
 
   constructor(private apiService: ApiService) { }
 
   // Get products for the user
-  getProducts(data) {
+  getProducts(data: any) {
     return this.apiService.post(this.getProductKey, data)
+  }
+
+  // Get products based on location (home)
+  getProductLocation(data: any) {
+    return this.apiService.post(this.getProductByLocation, data)
   }
 
 }

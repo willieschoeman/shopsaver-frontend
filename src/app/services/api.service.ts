@@ -9,7 +9,8 @@ export class ApiService {
 
   private urls = {
     login: '/api/authenticate/login',
-    getproduct: '/api/product/getproduct'
+    getProduct: '/api/product/getproduct',
+    getProductByLocation: '/api/product/getproductbylocation'
   }
 
   constructor(private http: HttpClient) {

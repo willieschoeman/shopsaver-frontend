@@ -1,0 +1,69 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div *ngIf="!isLoading">
+  <div class="container">
+    <h1>Product Dashboard</h1>
+
+    <div class="bubble" (click)="addProduct()">
+      <div class="bubble-inside">
+        <i class="fa fa-plus fa-3x"></i>
+        <br />
+        <span>Add Product</span>
+      </div>
+    </div>
+
+    <div class="row search">
+      <div class="col-sm-12 col-md-8 col-lg-6">
+        <label class="form-control-label">Search:</label>
+        <input type="text" placeholder="" class="form-control" [(ngModel)]="query" name="search">
+      </div>
+    </div>
+
+    <div class="stock-container row">
+      <div *ngFor="let product of products | search:'productName,category,productSku':query" class="card col-sm-6 col-md-6 col-lg-4 mt-4">
+        <div class="stock-holder">
+          <a data-toggle="tooltip" title="Update Product" (click)="editProduct(product._id)"><img class="card-img-top" src="data:image/jpeg;base64,{{product.productImage}}"
+              alt="Card image cap"></a>
+          <div class="card-body">
+            <h5 class="card-title">{{product.productName}}</h5>
+            <ul>
+              <li *ngIf="product.active === true"><strong class="product-active">Active</strong></li>
+              <li *ngIf="product.active === false"><strong class="product-inactive">Inactive</strong></li>
+              <li><strong>Category: </strong>{{product.categoryName}}</li>
+              <li><strong>Was: </strong>R{{product.productPriceWas}}</li>
+              <li><strong>Now: </strong>R{{product.productPriceNow}}</li>
+            </ul>
+          </div>
+          <div class="action-holder">
+            <a data-toggle="tooltip" title="Edit Product" class="action-item" (click)="editProduct(product._id)">
+              <i class="fa fa-edit fa-2x"></i>
+            </a>
+            <a data-toggle="tooltip" title="Delete Product" class="action-item" (click)="deleteProduct(product._id)">
+              <i class="fa fa-trash fa-2x"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Delete Modal Popup -->
+<ng-template #deleteModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Confirm Delete</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Are you sure you want to delete this product: <strong>{{deleteItem}}</strong>?
+    <p class="error-mgs">
+      {{deleteError}}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="confirmDelete()">Confirm</button>
+    <button type="button" class="btn btn-secondary" (click)="hideModal()">Cancel</button>
+  </div>
+</ng-template>

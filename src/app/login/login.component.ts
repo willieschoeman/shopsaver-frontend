@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('XUSERNAME', res.response.user.name)
           sessionStorage.setItem("XTOKEN", res.response.user.token)
           this.loginService.updateLogin(true)
-          this.router.navigate(['home'])
+          this.router.navigate(['dashboard'])
           this.isLoading = false
           this.isSubmitted = false;
         } else {
